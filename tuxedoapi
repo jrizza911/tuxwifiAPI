@@ -60,7 +60,7 @@ DisarmWithCode
 Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedSecurity/Disarm?pID=1 or 2 or 3...&ucode=Valid User Code&operation=set
 Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
 
-## AdvancedAutomation
+## -- AdvancedAutomation
 -- Automation Related Commands.
 setDoorBell
 -- This Service will simulate the doorbell press action.
@@ -69,8 +69,18 @@ Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedAutomation
 getDoorBell
 -- This Service will return the status of the door bell. It will get the latest doorbell event if occured. Once the event status is read, this event status will be cleared from the system.
 Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedAutomation/DoorBell/getDoorBell
+
 ## -- AdvancedMultimedia
 -- Multimedia Related Commands.
+GetCameraList
+-- This service will get all the camera's .
+Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedMultimedia/GetCameraList?operation=get
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+DiscoverCamera
+-- This service will initiate a discovery in the home network.
+Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedMultimedia/DiscoverCamera?operation=get
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
 
 ## -- Administration
 -- Administration related commands, which requires administrator authentication to access these commands.
