@@ -1,0 +1,207 @@
+ 
+
+>system_http_api >API_REV01                                                    
+ 
+
+## -- Registration
+-- Register/Unregister your system and applications with Tuxedo. Setup options for Associate/disassociate your system, add/remove your device MACID to tuxedo, view the enrolled
+ device MACID, login setup, authentication setup, association setup, network setup and filter setup.
+ -- Register the Client.This will send the Client Register Command.
+Example: http://<tuxedop ip>:<port>/system_http_api/API_REV01/Registration/Register?mac=[MAC ID of the accessing device max 17 characters formats (xx-xx-xx-xx-xx-xx or
+ xxxxxxxxxx)]&operation=set. HTTP Header parameter "authtoken" has to be added to the request. "authtoken" parameter should have the value as "MACID:<Your Device MAC>
+,Path:API_REV01/Registration/Register" and should be hashed with HMACSHA1 alogrothim
+TYPEID
+
+TUXEDO=1;
+PC=2;
+MOBILEPHONE=3;
+TABLET=4;
+CONTROLLER=5;
+AUDIOPLAYER=6;
+VIDEOPLAYER=7;
+TV=8;
+NAS;
+PRINTER;
+DVR;
+CAMERA;
+A/V_SYSTEM;
+VIDEO_SYSTEM;
+ACCESS_SYSTEM;
+SECURITY_SYSTEM;
+EMERGENCY_SYSTEM;
+AUTOMATION_SYSTEM;
+BUILDING_CONTROL_SYSTEM;
+HEALTHCARE_SYSTEM;
+ENERGY_SYSTEM;
+POWER_SYSTEM;
+CHARGING_SYSTEM;
+SOLAR_PANEL_SYSTEM;
+VEHICLE;
+NAVIGATION_SYSTEM;
+GPS_SYSTEM;
+WEATHER_SYSTEM;
+SETTOP_BOX;
+GA...
+
+Unregister
+-- Unregister the Client.This will send the Client Unregister Command.
+Example: http://<tuxedop ip>:<port>/system_http_api/API_REV01/Registration/Unregister?token=[Device MAC used during register]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## AdvancedSecurity
+-- Security Related Commands.
+
+ArmWithCode
+-- This service will ARM the System in AWAY/STAY/NIGHT mode.
+Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedSecurity/ArmWithCode?arming=AWAY,STAY,NIGHT&pID=1 or 2 or 3...&ucode=Valid User Code&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients) 
+DisarmWithCode
+-- This command will DISARM The System with the user code entered by the client
+Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedSecurity/Disarm?pID=1 or 2 or 3...&ucode=Valid User Code&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## AdvancedAutomation
+-- Automation Related Commands.
+setDoorBell
+-- This Service will simulate the doorbell press action.
+Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedAutomation/DoorBell/setDoorBell
+
+getDoorBell
+-- This Service will return the status of the door bell. It will get the latest doorbell event if occured. Once the event status is read, this event status will be cleared from the system.
+Example : http://<Tuxedo IP>:<port>/system_http_api/API_REV01/AdvancedAutomation/DoorBell/getDoorBell
+## -- AdvancedMultimedia
+-- Multimedia Related Commands.
+
+## -- Administration
+-- Administration related commands, which requires administrator authentication to access these commands.
+
+## -- GetDeviceList
+-- Get the latest device list with all or some of devices enrolled to Tuxedo. Default gets all the devices in all categories, or pass a category parameter to get only a specific category of device list.
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetDeviceList?category=[category:optional]&operation=set
+Catergories
+All(default)
+AllZwaveDevices
+Cameras
+Lights
+Thermostats
+Locks
+Shades
+OneTouchScene/AllScenes
+Sensors (future)
+Appliances (future)
+EMON Electric meter (future).
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetSecurityStatus
+-- Get the default home partition status, Partition ID is optional.
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetSecurityStatus?operation=get
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- SetSecurityArm
+-- Use this service to change the partition status.Default is AWAY and partition 1.
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetSecurityArm?arming=[AWAY,STAY,NIGHT]&pID=[Partition ID (1-8)]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetOccupancyMode
+-- Get the occupancy status from automation mode.
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetOccupancyMode?operation=get
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- SetOccupancyMode
+-- This Service is used to set the occupancy status for automation mode
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetOccupancyMode?omode=[HOME,AWAY/CLOSE,NIGHT]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetLightStatus
+-- This Service will get the status off a particular binary light (Nodeid,Device Name,Device Type and Status [Binary Switch 0-OFF,255-ON][Multilevel Switch 0-OFF, 1 to 99-ON)
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetLightStatus?nodeID=[Device ID assigned in Tuxedo Home Automation]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- SetLight
+-- This Service will set the status off a particular binary or dimmer light
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetLight?nodeID=[Device ID assigned in Tuxedo Home Automation]&percent=[percent=ON, OFF, DIM1,…
+DIM10]&operation=set 
+Where DIM1-DIM10 equal to 10 to 99.
+
+## -- GetThermostatMode
+-- This service will return the mode of particular thermostat(Nodeid,Device Name,Device Type and Mode [OFF,HEAT,COOL,AUTO,SAVECOOL,SAVEHEAT])
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetThermostatMode?nodeID=[Device ID assigned in Tuxedo Home Automation]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetThermostatSetPoint
+-- This service will give Heat and Cool Setpoint of particular thermostat(Nodeid,Device Name,Device Type,Heat Setpoint,Cool Setpoint,Save Heat,Save Cool)
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetThermostatSetPoint?nodeID=[Device ID assigned in Tuxedo Home Automation]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetThermostatEnergyMode
+-- This service will give the thermostat mode,Energy Save or Normal
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetThermostatEnergyMode?nodeID=[Device ID assigned in Tuxedo Home Automation]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+ 
+## -- SetThermostatMode
+-- Use this service to change the thermostat mode [mode=OFF,HEAT,COOL,AUTO].Modes 0-OFF,1-HEAT,2-COOL,3-AUTO,11-SAVEHEAT,12-SAVECOOL.
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetThermostatMode?nodeID=[Device ID assigned in Tuxedo Home Automation]&mode=
+[mode=OFF,HEAT,COOL,AUTO]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- SetThermostatSetPoint
+-- Use this service to change the Heat and Cool Setpoint of particular thermostat [mode=HEAT,COOL,SAVEHEAT,SAVECOOL].Modes 1-HEAT,2-COOL,11-SAVEHEAT,12-SAVECOOL.
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetThermostatSetPoint?nodeID=[Device ID assigned in Tuxedo Home Automation]&mode=
+[mode=HEAT,COOL,SAVEHEAT,SAVECOOL]&setPoint=[setpoint=temp_value]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- SetThermostatEnergyMode
+-- Use this service to change the thermostat mode to Energy Save or Normal[dev_id=node_ID], [energy_mode=NORMAL,ECO]
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+ 
+## -- GetDoorLockStatus
+-- Use this service to get the status of a particular doorlock
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetDoorLockStatus?nodeID=[Device ID assigned in Tuxedo Home Automation]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- SetDoorLock
+-- Use this service to set the status of a particular doorlock[LOCK or 1]
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetDoorLock?nodeID=[Device ID assigned in Tuxedo Home Automation]&cntrl=[LOCK,UNLOCK ]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetSceneList
+-- Use this command to retrieve all the Scenes
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetSceneList?operation=get
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- ExecuteScene
+-- Use this command to execute the scene 
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/ExecuteScene?sceneID=[SceneID=1]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetThermostatTemperature
+-- This Service will retrieve the current temperature from the thermostat
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetThermostatTemperature?nodeID=[Device Node ID]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetThermostatFanMode
+-- This Service will retrieve the current temperature from the thermostat
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetThermostatTemperature?nodeID=[Device Node ID]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetThermostatFullStatus
+-- This Service will retrieve the current temperature from the thermostat
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetThermostatTemperature?nodeID=[Device Node ID]&operation=set
+Authentication token should be added as part of authtoken http header (Authentication token recieved during registeration operation. Not applicable for browser clients)
+
+## -- GetWaterValveStatus
+-- Use this service to get the status of a particular water valve control
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetWaterValveStatus?nodeID=[node_ID=dev_id]
+
+## -- SetWaterValveStatus
+-- Use this service to set the status of a particular water valve control
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetWaterValveStatus?nodeID=[node_ID=dev_id]&cntrl=[[Close or 1] or [Open or 255]]&operation=set
+
+## -- GetGarageDoorStatus
+-- Use this service to get the status of a particular garage door control
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/GetGarageDoorStatus?nodeID=[node_ID=dev_id]
+
+## -- SetGarageDoorStatus
+-- Use this service to set the status of a particular garage door control
+Example : http://<tuxedop ip>:<port>/system_http_api/API_REV01/SetGarageDoorStatus?nodeID=[node_ID=dev_id]&cntrl=[[Close or 1] or [Open or 255]]&operation=set
+
