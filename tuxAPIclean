@@ -1,0 +1,62 @@
+## User defined variables
+<TuxIP>=192.168.1.102
+<TuxPort>=563
+<TuxAddress>=http://<TuxIP>:<TuxPort>
+(ZWNodeID)=user defined
+(DIM%)=(AES encrypted dimmer percentage)
+(Valid_User_Code)=1234
+(Partition_ID)=01
+
+## STEP 1: Register, allow user to assign nick name to each device
+## STEP 2: Get list of connected devices Command.getZwaveDevList, Allow user to create a nick name for each nodeID number.
+## STEP 3: 
+## STEP 4: 
+
+## Register the Client.
+## This will send the Client Register Command.
+Command.Register=<TuxAddress>/M2MCommunications/Registration/Register
+## Unregister the Client.
+## This will send the Client Unregister Command.
+Command.Unregister=<TuxAddress>/M2MCommunications/Registration/Unregister
+## This Service will get the status off a particular binary/dimmer light.
+## Get list of connected devices.
+Command.getZwaveDevList=<TuxAddress>/M2MCommunications/Automation/getZwaveDevList
+## This Service will switch on all lights.
+Command.AllLightsOn=<TuxAddress>/M2MCommunications/Automation/AllLightsOn
+## This Service will switch off all lights.
+Command.AllLightsOff=<TuxAddress>/M2MCommunications/Automation/AllLightsOff
+## This Service will get the status off a particular binary light.
+Command.getLightStatus=<TuxAddress>/M2MCommunications/Automation/getLightStatus?nodeID=(ZWNodeID)&operation=set
+## This Service will switch on a particular binary light.
+Command.LightOn=<TuxAddress>/M2MCommunications/Automation/LightOn?nodeID=(ZWNodeID)&operation=set
+## This Service will switch off a particular binary light.
+Command.LightOff=<TuxAddress>/M2MCommunications/Automation/LightOff?nodeID=(ZWNodeID)&operation=set
+## This Service will switch on a particular dimmer light.
+Command.DimmerOn=<TuxAddress>/M2MCommunications/Automation/DimmerOn?nodeID=(ZWNodeID)&percent=(DIM%)&operation=set
+## This Service will switch off a particular dimmer light.
+Command.DimmerOff=<TuxAddress>/M2MCommunications/Automation/DimmerOff?nodeID=(ZWNodeID)&operation=set
+## This Service will get the status off a particular dimmer light.
+Command.getDimmerStatus=<TuxAddress>/M2MCommunications/Automation/getDimmerStatus?nodeID=(ZWNodeID)&operation=set
+## This Service will lock the door lock.
+Command.DoorLock=<TuxAddress>/M2MCommunications/Automation/DoorLock?nodeID=(ZWNodeID)&operation=set
+## This Service will unlock the door lock.
+Command.DoorUnlock=<TuxAddress>/M2MCommunications/Automation/DoorUnlock?nodeID=(ZWNodeID)&operation=set
+## This Service will get the status off a particular binary/dimmer light.
+Command.getDoorlockStatus=<TuxAddress>/M2MCommunications/Automation/getDoorlockStatus?nodeID=(ZWNodeID)&operation=set
+## This Service will get the status off a particular binary/dimmer light.
+Command.getCurrentTemp=<TuxAddress>/M2MCommunications/Automation/getCurrentTemp?nodeID=(ZWNodeID)&operation=set
+## This Service will get the status off a particular binary/dimmer light.
+Command.getCurrentMode=<TuxAddress>/M2MCommunications/Automation/getCurrentMode?nodeID=(ZWNodeID)&operation=set
+## This Service will get the status off a particular binary/dimmer light.
+Command.setMode=<TuxAddress>/M2MCommunications/Automation/setMode?nodeID=(ZWNodeID)&operation=set
+##$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Security Contents
+## This service will ARM The System in AWAY mode.
+Command.ArmAway=<TuxAddress>/M2MCommunications/Security/ArmAway?pID=(Partition_ID)&uCode=(Valid_User_Code)&operation=set
+## This service will ARM The System in STAY mode.
+Command.ArmStay=<TuxAddress>/M2MCommunications/Security/ArmStay?pID=(Partition_ID)&uCode=(Valid_User_Code)&operation=set
+## This service will ARM The System in NIGHT mode.
+Command.ArmNight=<TuxAddress>/M2MCommunications/Security/ArmNight?pID=(Partition_ID)&uCode=(Valid_User_Code)&operation=set
+## This service will DISARM The System.
+Command.Disarm=<TuxAddress>/M2MCommunications/Security/Disarm?pID=(Partition_ID)&uCode=(Valid_User_Code)&operation=set
+## This service will provide the current system status.
+Command.GetStatus=<TuxAddress>/M2MCommunications/Security/GetStatus
